@@ -160,8 +160,12 @@ services:
     image: prom/mysqld-exporter:latest
     restart: unless-stopped
     
+    command:
+      - "--mysqld.address=mysql:3306"
+      - "--mysqld.username=admin"
+    
     environment:
-      DATA_SOURCE_NAME: "admin:${MYSQL_PASSWORD:-changeme123}@(mysql:3306)/"
+      MYSQLD_EXPORTER_PASSWORD: ${MYSQL_PASSWORD:-changeme123}
     
     ports:
       - "9104:9104"
